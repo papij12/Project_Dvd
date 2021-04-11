@@ -13,18 +13,21 @@ namespace Project_Dvd
             using (NpgsqlConnection conn = new NpgsqlConnection(connection_string))
             {
                 conn.Open();
-                using (var command = new NpgsqlCommand("Select * from movies where movie_id = @id ", conn))
+                using (var command = new NpgsqlCommand("Select title,year, m.movie_id, price, count (copy_id) totalcount from movies m join copies c On c.movie_id = m.movie_id where m.movie_id = @id group by title,year, m.movie_id, price; ", conn))
                 {
                     command.Parameters.AddWithValue("@id", id);
                     NpgsqlDataReader reader = command.ExecuteReader();
                     if (reader.Read())
                     {
                         string title = (string)reader["title"];
+
                         int year = (int)reader["year"];
                     
                         double price = Convert.ToDouble(reader["price"]);
 
-                        return new Movies(title, year, id, price);
+                        int Numberofcopies = Convert.ToInt32 ( reader["totalcount"]);
+
+                        return new Movies(title, year, id, price, Numberofcopies);
                     }
                     else { return null; }
                 }

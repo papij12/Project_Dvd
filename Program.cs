@@ -29,6 +29,7 @@ namespace Project_Dvd
                     var mapper1 = new MovieMapper();
                     var movie1 = mapper1.GetById(id);
                     Console.WriteLine(movie1);
+                    Console.ReadLine();
                     break;
                 case 2:
                     Console.Clear();
