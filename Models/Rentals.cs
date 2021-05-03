@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Project_Dvd
+namespace Project_Dvd.Models
 {
-    class CopyMapper
+    class Rentals
     {
     }
 }

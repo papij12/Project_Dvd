@@ -1,14 +1,15 @@
-﻿using System;
+﻿using Npgsql;
+using Project_Dvd.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using Npgsql;
 
-namespace Project_Dvd
+namespace Project_Dvd.Mappers
 {
     class MovieMapper
     {
         private string connection_string = "Server=127.0.0.1;User Id=postgres;Password=pwd;Database=rental;";
-        public Movies GetById (int id)
+        public Movies GetById(int id)
         {
             using (NpgsqlConnection conn = new NpgsqlConnection(connection_string))
             {
@@ -22,10 +23,10 @@ namespace Project_Dvd
                         string title = (string)reader["title"];
 
                         int year = (int)reader["year"];
-                    
+
                         double price = Convert.ToDouble(reader["price"]);
 
-                        int Numberofcopies = Convert.ToInt32 ( reader["totalcount"]);
+                        int Numberofcopies = Convert.ToInt32(reader["totalcount"]);
 
                         return new Movies(title, year, id, price, Numberofcopies);
                     }
